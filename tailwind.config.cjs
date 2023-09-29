@@ -8,6 +8,9 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: ["Vidaloka", "OdorMeanChey", ...defaultTheme.fontFamily.sans],
+				title: ['StardosStencil', 'Limonf3'],
+				display: ['Oswald', "Koulen"],
+      			body: ['"Vidaloka"', "OdorMeanChey"],
 			},
 		},
 	},

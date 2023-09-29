@@ -1,0 +1,33 @@
+<!--src/layouts/Header.astro-->
+---
+---
+<section class="bg-teal-600 text-white">
+    <div class="max-w-5xl mx-auto py-1 flex flex-col sm:flex-row">
+        <span class="mx-auto sm:mx-0">
+            <a class="hover:opacity-75" href="/admin">ចូល​ក្នុង</a> | ចុះ​ឈ្មោះ
+        </span>
+        <span id="date" class="mx-auto sm:mx-0 sm:ml-auto pt-2 sm:pt-0">
+            <script>
+                const datetime = new Date().toLocaleDateString('it-IT')
+                $('#date').html(datetime)
+            </script>
+        </span>
+    </div>
+</section>
+<section class="bg-teal-700 text-white">
+    <header class='text-center sm:text-left max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 items-center py-5'>
+        <div class="grid grid-cols-4 w-40 gap-2 mx-auto sm:mx-0">
+            <img class="inline" src="/images/facebook.png" />
+            <img class="inline" src="/images/telegram.png" />
+            <img class="inline" src="/images/twitter.png" />
+            <img class="inline" src="/images/youtube.png" />
+        </div>
+        <div class='font-title text-5xl text-center sm:text-left'>
+            <a href="/">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​ទស្សនាវដ្តី​យើង</a>
+        </div>
+        <form class='text-center sm:text-right' action="/search">
+            <input class="px-2 py-1" type='text' name='q' placeholder='Search...' required />
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-2 py-1">ស្វែង​រក</button> 
+        </form>
+    </header>
+</section>

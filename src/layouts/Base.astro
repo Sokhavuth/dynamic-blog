@@ -1,6 +1,7 @@
 <!--src/layouts/Base.astro-->
 ---
 const { pageTitle="ទំព័រ​គ្រឹះ" } = Astro.props
+import Header from "./Header.astro"
 ---
 
 <html lang="en">
@@ -14,7 +15,7 @@ const { pageTitle="ទំព័រ​គ្រឹះ" } = Astro.props
         <script is:inline src="/scripts/jquery.js"></script>
     </head>
     <body class="text-sm leading-normal">
-        <p>ក្បាល​ទំព័រ</p>
+        <Header/>
         <p>ម៉ឺនុយ</p>
         <slot/>
         <p>ជើង​ទំព័រ</p>
