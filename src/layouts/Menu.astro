@@ -1,0 +1,44 @@
+<!--src/layouts/Menu.astro-->
+---
+
+---
+<div class="bg-teal-500">
+    <nav class="font-display max-w-5xl mx-auto flex items-center justify-between flex-wrap bg-teal-500 md:p-0 p-6">
+        <div class="text-white mr-6">
+          <img class="w-7" src="/images/home.png" />
+        </div>
+        <div id="menu-button" class="block md:hidden">
+          <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+          </button>
+        </div>
+        <div id="menu" class="hidden w-full flex-grow md:flex md:items-center md:w-auto">
+          <div class="text-base md:flex-grow">
+            <a href="#responsive-header" class="block md:inline-block text-white hover:opacity-75 p-2">
+              ព័ត៌មាន
+            </a>
+            <a href="#responsive-header" class="block md:inline-block text-white hover:opacity-75 p-2">
+              សិល្បៈ
+            </a>
+            <a href="#responsive-header" class="block md:inline-block text-white hover:opacity-75 p-2">
+              វប្បធម៌
+            </a>
+            <a href="#responsive-header" class="block md:inline-block text-white hover:opacity-75 p-2">
+              ទំនាក់ទំនង
+            </a>
+            <a href="#responsive-header" class="block md:inline-block text-white hover:opacity-75 p-2">
+              អំពី​យើង​ខ្ញុំ
+            </a>
+          </div>
+        </div>
+    </nav>
+</div>
+
+<script>
+    const button = document.querySelector('#menu-button')
+    const menu = document.querySelector('#menu')
+    
+    button.addEventListener('click', () => {
+    menu.classList.toggle('hidden')
+})
+</script>
