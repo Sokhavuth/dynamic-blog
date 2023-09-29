@@ -1,11 +1,11 @@
 <!--src/layouts/Menu.astro-->
 ---
-
+const { pageURL="/" } = Astro.props
 ---
 <div class="bg-teal-500">
     <nav class="font-display max-w-5xl mx-auto flex items-center justify-between flex-wrap bg-teal-500 md:p-0 p-6">
         <div class="text-white mr-6">
-          <img class="w-7" src="/images/home.png" />
+          <a href="/"><img class="w-7 hover:opacity-75" src="/images/home.png" /></a>
         </div>
         <div id="menu-button" class="block md:hidden">
           <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
