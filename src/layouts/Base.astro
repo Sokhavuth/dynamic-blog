@@ -3,6 +3,7 @@
 const { pageTitle="ទំព័រ​គ្រឹះ" } = Astro.props
 import Header from "./Header.astro"
 import Menu from "./Menu.astro"
+import Footer from "./Footer.astro"
 ---
 
 <html lang="en">
@@ -17,8 +18,8 @@ import Menu from "./Menu.astro"
     </head>
     <body class="text-sm leading-normal">
         <Header siteTitle="ទស្សនាវដ្តី​យើង"/>
-        <Menu/>
+        <Menu pageURL="/"/>
         <slot/>
-        <p>ជើង​ទំព័រ</p>
+        <Footer/>
     </body>
 </html>
