@@ -15,7 +15,7 @@ export async function POST({cookies, redirect, request, locals}){
       const token = jwt.sign(data, SECRET_KEY, {expiresIn: "12h"})
       cookies.set("access_token", token, { httpOnly: true})
       
-      return redirect('/admin', 302)
+      return redirect('/admin', 302)//
     }else{
       const message = 'ពាក្យ​សំងាត់​មិន​ត្រឹមត្រូវ​ទេ'         
       return new Response(JSON.stringify(message))
