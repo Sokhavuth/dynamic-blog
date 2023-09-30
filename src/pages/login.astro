@@ -1,0 +1,53 @@
+<!--src/pages/login.astro-->
+---
+const result = ""
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>​​​​​ទំព័រ​ចូល​ក្នុង</title>
+        <link rel="icon" href="/images/siteLogo.png" />
+        <link href="/fonts/setup.css" rel="stylesheet" />
+        <script is:inline src="/scripts/jquery.js"></script>
+    </head>
+    <body class="text-sm leading-normal bg-gray-200">
+        <section class="w-[300px] mx-auto mt-20 bg-white">
+            <div class="text-center bg-teal-600 text-white font-display text-base py-1">
+                ចុះ​ឈ្មោះ​ចូល​​​​​​​​ទំព័រគ្រប់គ្រង
+            </div>
+            <form id="login" class="p-5" action="/api/login" method="post">
+                <input class="w-full border px-2 py-1 mb-2" value="guest@khmerweb.app"
+                    type="email" name="email" required placeholder="Email"/>
+                <input class="w-full border px-2 py-1 mb-2" value="password"
+                    type="password" name="password" required placeholder="ពាក្យ​សំងាត់"/>
+                <input class="w-full bg-gray-300 px-2 py-1" 
+                    type="submit" value="បញ្ជូន​"/>
+                <div id="info" class="text-center pt-1">{result}</div>
+            </form>
+        </section>
+        <script>
+            $('#login').on( "submit", function(event){
+                event.preventDefault()
+                const email = $('#login input[name="email"]').val()
+                const password = $('#login input[name="password"]').val()
+
+                const response = fetch('/api/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({password, email}),
+                    redirect: 'follow'
+                }).then(response => {
+                    if(response.redirected){  
+                        window.location.replace(response.url)
+                        return
+                    }
+                    return response.json()
+
+                }).then(response => $('#login #info').html(response))
+            })
+        </script>
+    </body>
+</html>
