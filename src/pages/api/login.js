@@ -13,9 +13,8 @@ export async function POST({cookies, redirect, request, locals}){
     if(bcrypt.compareSync(body.password, user.password)){
       const data = {userId: user.id, userRole: user.role, userName: user.title}
       const token = jwt.sign(data, SECRET_KEY, {expiresIn: "12h"})
-      cookies.set("access_token", token, { httpOnly: true})
-      
-      return redirect('/admin', 302)//
+      cookies.set("access_token", token, { httpOnly: true, path: "/"})
+      return redirect('/admin', 302)
     }else{
       const message = 'ពាក្យ​សំងាត់​មិន​ត្រឹមត្រូវ​ទេ'         
       return new Response(JSON.stringify(message))

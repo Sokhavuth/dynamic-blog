@@ -1,6 +1,10 @@
 <!--src/pages/login.astro-->
 ---
 const result = ""
+const { userAuth } = Astro.locals
+if(userAuth){
+    return Astro.redirect('/admin')
+}
 ---
 
 <html lang="en">
@@ -13,7 +17,7 @@ const result = ""
         <link href="/fonts/setup.css" rel="stylesheet" />
         <script is:inline src="/scripts/jquery.js"></script>
     </head>
-    <body class="text-sm leading-normal bg-gray-200">
+    <body class="text-sm leading-normal bg-gray-300">
         <section class="w-[300px] mx-auto mt-20 bg-white">
             <div class="text-center bg-teal-600 text-white font-display text-base py-1">
                 ចុះ​ឈ្មោះ​ចូល​​​​​​​​ទំព័រគ្រប់គ្រង
