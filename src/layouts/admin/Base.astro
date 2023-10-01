@@ -1,0 +1,22 @@
+<!--src/layouts/admin/Base.astro-->
+---
+const { pageTitle="ទំព័រ​គ្រឹះ" } = Astro.props
+import Footer from "../Footer.astro"
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{pageTitle}</title>
+        <link rel="icon" href="/images/siteLogo.png" />
+        <link href="/fonts/setup.css" rel="stylesheet" />
+        <script is:inline src="/scripts/jquery.js"></script>
+    </head>
+    <body class="text-sm leading-normal">
+        <p>ក្បាល​ទំព័រ</p>
+        <slot/>
+        <Footer/>
+    </body>
+</html>
