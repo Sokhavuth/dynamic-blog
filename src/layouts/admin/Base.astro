@@ -2,6 +2,7 @@
 ---
 const { pageTitle="ទំព័រ​គ្រឹះ" } = Astro.props
 import Footer from "../Footer.astro"
+import Header from "./Header.astro"
 ---
 
 <html lang="en">
@@ -15,7 +16,7 @@ import Footer from "../Footer.astro"
         <script is:inline src="/scripts/jquery.js"></script>
     </head>
     <body class="text-sm leading-normal">
-        <p>ក្បាល​ទំព័រ</p>
+        <Header pageTitle={pageTitle}/>
         <slot/>
         <Footer/>
     </body>

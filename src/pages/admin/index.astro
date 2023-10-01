@@ -1,6 +1,10 @@
 <!--src/pages/admin/index.astro-->
 ---
 import Base from "../../layouts/admin/Base.astro"
+const { userAuth } = Astro.locals
+if(!userAuth){
+    return Astro.redirect('/login')
+}
 ---
 
 <Base pageTitle="ទំព័រ​គ្រប់គ្រង">
