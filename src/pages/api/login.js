@@ -11,8 +11,8 @@ export async function POST({cookies, redirect, request, locals}){
 
   if(user){
     if(bcrypt.compareSync(body.password, user.password)){
-      const data = {userId: user.id, userRole: user.role, userName: user.title}
-      const token = jwt.sign(data, SECRET_KEY, {expiresIn: "12h"})
+      const userAuth = {userId: user.id, userRole: user.role, userName: user.title}
+      const token = jwt.sign(userAuth, SECRET_KEY, {expiresIn: "12h"})
       cookies.set("access_token", token, { httpOnly: true, path: "/"})
       return redirect('/admin', 302)
     }else{

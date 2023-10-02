@@ -7,10 +7,12 @@ const { userAuth } = Astro.locals
 <section class="bg-teal-600 text-white md:px-0 px-2">
     <div class="max-w-5xl mx-auto py-1 flex flex-col md:flex-row items-center">
         <div class="flex flex-col md:flex-row items-center gap-2 md:w-1/4 w-full">
-            <img class="w-12" src="/images/siteLogo.png" />
-            <a href="/admin" class="hover:opacity-75 font-title text-2xl md:pt-2 pt-0 md:py-0 py-2">
-                {pageTitle}
+            <a class="hover:opacity-75" href="/admin">
+                <img class="w-12" src="/images/siteLogo.png" />
             </a>
+            <span class="font-title text-2xl md:pt-2 pt-0 md:py-0 py-2">
+                {pageTitle}
+            </span>
         </div>
         <form class="flex flex-row md:w-1/2 w-full text-gray-800" action="/api/admin/search" method="post">
             <select name="type" class="pl-2">

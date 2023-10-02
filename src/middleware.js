@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 import jwt from "jsonwebtoken"
 
-export function onRequest ({ locals, request, cookies }, next) {
+export function onRequest ({ locals, request, cookies, redirect }, next) {
     locals.prisma = prisma
     const token = cookies.get('access_token')
     
