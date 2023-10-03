@@ -7,5 +7,7 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   output: "server",
   adapter: netlify(),
-  integrations: [tailwind()]
+  integrations: [tailwind({
+    applyBaseStyles: false,
+  })]
 });

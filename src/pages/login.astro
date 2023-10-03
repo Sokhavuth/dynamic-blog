@@ -1,6 +1,7 @@
 <!--src/pages/login.astro-->
 ---
 const result = ""
+import "../styles/global.css"
 const { userAuth } = Astro.locals
 if(userAuth){
     return Astro.redirect('/admin')
