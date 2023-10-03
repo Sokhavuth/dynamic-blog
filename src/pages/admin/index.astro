@@ -1,6 +1,7 @@
 <!--src/pages/admin/index.astro-->
 ---
 import Base from "../../layouts/admin/Base.astro"
+import Post from "../../layouts/admin/Post.astro"
 const userAuth = Astro.locals.userAuth
 if(!userAuth){
     return Astro.redirect('/login')
@@ -8,5 +9,5 @@ if(!userAuth){
 ---
 
 <Base pageTitle="ទំព័រ​គ្រប់គ្រង">
-    <p>Welcome to Admin page!</p>
+    <Post/>
 </Base>

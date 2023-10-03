@@ -1,0 +1,102 @@
+<!--src/layouts/admin/Post.astro-->
+---
+---
+
+<script is:inline src="/scripts/ckeditor/ckeditor.js"></script>
+
+<section class="Post w-full">
+    <form id="form" action="/api/post/insert" method="post">
+        <input class="border w-full px-2 py-1 border-slate-300"
+            type="text" name="title" required placeholder="ចំណងជើង" 
+        />
+        <textarea class="" name="content" id="editor"></textarea>
+        <input class="border w-full px-2 py-1 border-slate-300"
+            type="text" name="categories" required placeholder="ជំពូក" 
+        />
+        <div class="grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1"> 
+            <select class="border px-2 py-1 border-slate-300" id="category">
+                <option>ជ្រើសរើស​ជំពូក</option>
+                <option>ព័ត៌មាន</option>
+            </select>
+            <input class="border px-2 py-1 border-slate-300"
+                type="text" name="thumb" required placeholder="រូបតំណាង" 
+            />
+            <input class="border px-2 py-1 border-slate-300"
+                type="datetime-local" step="1" name="datetime" required 
+            />
+            <input class="border border-slate-300 px-2 py-1 hover:opacity-75 bg-slate-200 hover:cursor-pointer"
+                type="submit" value="ចុះ​ផ្សាយ" 
+            />
+            <input type="hidden" name="videos" value="" />
+        </div>
+    </form>
+
+    <div class='grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1'>
+        <select name='type' class="border px-2 py-1 border-slate-300">
+            <option>YouTube</option>
+            <option>YouTubePlaylist</option>
+            <option>Facebook</option>
+            <option>OK</option>
+            <option>Dailymotion</option>
+            <option>Vimeo</option>
+        </select>
+        <input class="border px-2 py-1 border-slate-300"
+            name='videoid' type='text' placeholder="អត្តសញ្ញាណ" required 
+        />
+        <select name='status' class="border px-2 py-1 border-slate-300">
+            <option>ចប់</option>
+            <option>នៅ​មាន​ត</option>
+            <option>~ ចប់</option>
+        </select>
+        <input class="border border-slate-300 px-2 py-1 hover:opacity-75 bg-slate-200 hover:cursor-pointer"
+            id='insert-video' type="button" value="បញ្ចូល​វីដេអូ" 
+        />
+    </div>
+
+    <div class='viddata '>
+        <div class="grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1"></div>
+    </div>
+
+    <script>
+        $('.Post input').on('change', () => {
+            window.onbeforeunload = save_data_check
+        })
+        
+        ckeditor.model.document.on( 'change', () => {
+            window.onbeforeunload = save_data_check
+        } )
+
+        $('.Post #form').on('submit', () => {
+            window.onbeforeunload = null
+            submitForm()
+        })
+
+        function save_data_check(){        
+            return "Your changes may not be saved."
+        }
+
+        $('.Post #category').on('change', () => {
+            const category = $('#category option:selected').text()
+            $('select').prop('selectedIndex',0)
+            let categories = $('[name=categories]').val()
+            if(categories === ''){
+                categories += category
+            }else{
+                categories += (`, ${category}`)
+            }
+    
+            $('[name=categories]').val(categories)
+        })
+
+        $('.Post #insert-video').on('click', () => {
+            genJson()
+        })
+    </script>
+</section>
+<script is:inline src="/scripts/ckeditor/config.js"></script>
+<script is:inline src="/scripts/video.js"></script>
+<style is:global>
+    .ck-editor__editable {
+        min-height: 250px;
+    }
+</style>
