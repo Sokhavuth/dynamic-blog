@@ -8,7 +8,7 @@ const videos = true
     <div class="text-center bg-teal-100 mt-2 py-2">
         ទាំងអស់​មាន​ចំនួនៈ {total}
     </div>
-    <ul class="grid md:grid-cols-2 grid-cols-1 gap-2 py-2 text-gray-600">
+    <ul id="item-listing" class="grid md:grid-cols-2 grid-cols-1 gap-2 py-2 text-gray-600">
         {[...Array(4).keys()].map((item, i)=>(
         <li class="bg-teal-100 grid grid-cols-[20%_60%_15%] gap-x-2 items-center group">
             <a class="relative pt-[56.25%] overflow-hidden" href="/post/:id">
@@ -31,12 +31,18 @@ const videos = true
                 <a class="block w-1/2" href="/admin/edit/:id">
                     <img class="invisible group-hover:visible" src="/images/edit.png" />
                 </a>
-                <a class="block w-1/2" href="/admin/delete/:id">
+                <a id="" class="delete block w-1/2" href=`/admin/delete/${i}`>
                     <img class="invisible group-hover:visible" src="/images/delete.png" />
                 </a>
             </div>
         </li>
         ))}
+        <script>
+            $('#item-listing .delete').on('click', function () {
+                return confirm('តើ​ពិតជា​ចង់​លុប?');
+            });
+        </script>
+        
     </ul>
     <div class="bg-teal-100 py-2 mb-5">
         <img class="mx-auto hover:opacity-75 cursor-pointer" src="/images/load-more.png" />
