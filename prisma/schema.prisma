@@ -20,3 +20,14 @@ model User {
   content String
   date    String
 }
+
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  content String
+  categories String[]
+  thumb String
+  date String
+  videos String
+  userid String
+}

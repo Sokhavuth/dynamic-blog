@@ -1,4 +1,4 @@
-// static/scripts/video.js
+// public/scripts/video.js
 
 let episode = 0
 
@@ -58,7 +58,8 @@ const genJson = () => {
         }
 
         html += `<p title="លុប" onClick="deleteRow(event)"
-        class="episode border px-2 py-1 border-slate-300 hover:opacity-75 text-center bg-slate-200 hover:cursor-pointer">
+        class="episode border px-2 py-1 border-slate-300 hover:opacity-75 text-center 
+        bg-slate-200 hover:cursor-pointer">
         ${++episode}
         </p>`
         html = `<div class="grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1">${html}</div>`
@@ -87,7 +88,6 @@ function submitForm(){
 
         const json = JSON.stringify(videos)
         $('input[name="videos"').val(json)
-        alert(json)
     }
 }
 

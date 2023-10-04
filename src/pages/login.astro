@@ -3,7 +3,7 @@
 const result = ""
 import "../styles/global.css"
 const { userAuth } = Astro.locals
-if(userAuth){
+if(userAuth?.userId){
     return Astro.redirect('/admin')
 }
 ---
@@ -23,7 +23,7 @@ if(userAuth){
             <div class="text-center bg-teal-600 text-white font-display text-base py-1">
                 ចុះ​ឈ្មោះ​ចូល​​​​​​​​ផ្នែក​គ្រប់គ្រង
             </div>
-            <form id="login" class="p-5" action="/api/login" method="post">
+            <form id="login" class="p-5" method="post">
                 <input class="w-full border px-2 py-1 mb-2" value="guest@khmerweb.app"
                     type="email" name="email" required placeholder="Email"/>
                 <input class="w-full border px-2 py-1 mb-2" value="password"

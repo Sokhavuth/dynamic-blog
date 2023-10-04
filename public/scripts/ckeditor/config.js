@@ -1,4 +1,4 @@
-var ckeditor;
+var ckeditor
 
 ClassicEditor
         .create( document.querySelector( '#editor' ), {
@@ -38,9 +38,8 @@ ClassicEditor
           },
         })
         .then( editor => {
-          //editor.ui.view.editable.element.style.height = '300px'
-          ckeditor = editor;
+          ckeditor = editor
         })
         .catch( err => {
-          console.error( err.stack );
+          console.error( err.stack )
         });

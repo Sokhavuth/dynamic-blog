@@ -21,6 +21,6 @@ export function onRequest ({ locals, request, cookies, redirect }, next) {
     }catch(err){
         console.log(err.message)
     }
-
+    
     return next()
 }
