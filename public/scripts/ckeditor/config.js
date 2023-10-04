@@ -5,7 +5,7 @@ ClassicEditor
           
           toolbar: ['fontfamily', 'fontsize', 'fontcolor', 'bold', 'italic', 
           'bulletedList', 'indent', 'outdent', 'numberedList', 'link', 'blockQuote', 
-          'code', 'codeblock', 'imageinsert', 'mediaembed', 'undo', 'redo' ],
+          'insertTable','code', 'codeblock', 'imageinsert', 'mediaembed', 'undo', 'redo' ],
           fontFamily: {
             options: [
               'ឧត្តមាន​ជ័យ, OdorMeanChey', 'អក្សរដៃ, HandWriting',

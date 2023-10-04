@@ -5,7 +5,7 @@
 <script is:inline src="/scripts/ckeditor/ckeditor.js"></script>
 
 <section class="Post w-full">
-    <form id="form" action="/api/post/insert" method="post">
+    <form id="form" action="/api/post/create" method="post">
         <input class="border w-full px-2 py-1 border-slate-300"
             type="text" name="title" required placeholder="ចំណងជើង" 
         />
@@ -86,6 +86,7 @@
             }
     
             $('[name=categories]').val(categories)
+            window.onbeforeunload = save_data_check
         })
 
         $('.Post #insert-video').on('click', () => {
@@ -93,6 +94,7 @@
         })
     </script>
 </section>
+
 <script is:inline src="/scripts/ckeditor/config.js"></script>
 <script is:inline src="/scripts/video.js"></script>
 <style is:global>
