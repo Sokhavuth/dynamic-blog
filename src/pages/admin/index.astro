@@ -2,12 +2,14 @@
 ---
 import Base from "../../layouts/admin/Base.astro"
 import Post from "../../layouts/admin/Post.astro"
-const { userAuth, prisma } = Astro.locals
+const { userAuth, prisma, setting } = Astro.locals
 if(!userAuth?.userId){ return Astro.redirect('/login') }
 
 import post from "../../data/post.js"
 let total = await post.count({prisma})
-
+let items = await post.getPosts({prisma}, setting.adminItems)
+let posts = items.map((post)=>{post.date = new Date(post.date).toLocaleDateString('it-IT')
+                                return post })
 if(userAuth.userRole !== "Guest"){
     if(Astro.request.method === "POST"){
         const data = await Astro.request.formData()
@@ -23,11 +25,14 @@ if(userAuth.userRole !== "Guest"){
             const body = {title, content, categories, thumb, datetime, videos}
             await post.create({ prisma, body, userAuth })
             total = await post.count({prisma})
+            items = await post.getPosts({prisma}, setting.adminItems)
+            posts = items.map((post)=>{post.date = new Date(post.date).toLocaleDateString('it-IT')
+                                        return post })
         }
     }
 }
 ---
 
-<Base pageTitle="ទំព័រ​គ្រប់គ្រង", total={total}>
+<Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={posts} type="post">
     <Post/>
 </Base>

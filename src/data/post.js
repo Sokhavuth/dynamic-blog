@@ -28,6 +28,21 @@ class Post{
         
         await req.prisma.post.create({ data: new_post })
     }
+
+    async getPosts(req, amount){
+        return await req.prisma.post.findMany({ 
+            take: amount, 
+            orderBy: [{ date: "desc" }, { id: "desc" }]
+        })
+    }
+
+    async getPost(req){
+        return await req.prisma.post.findUnique({ where: {id: req.params.id }})
+    }
+
+    async delete(req){
+        await req.prisma.post.delete({ where: {id: req.params.id } })
+    }
 }
 
 export default new Post()

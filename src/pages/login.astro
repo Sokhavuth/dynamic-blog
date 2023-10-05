@@ -2,10 +2,11 @@
 ---
 const result = ""
 import "../styles/global.css"
-const { userAuth } = Astro.locals
-if(userAuth?.userId){
-    return Astro.redirect('/admin')
-}
+const { userAuth, prisma } = Astro.locals
+if(userAuth?.userId){return Astro.redirect('/admin')}
+
+//import user from "../data/user.js"
+//await user.createRootUser({prisma})
 ---
 
 <html lang="en">

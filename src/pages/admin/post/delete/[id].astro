@@ -1,0 +1,20 @@
+<!--src/admin/post/delete/[id].astro-->
+---
+const { userAuth, prisma, setting } = Astro.locals
+const params = Astro.params
+if(!userAuth?.userId){ return Astro.redirect('/login') }
+
+import post from "../../../../data/post.js"
+if(userAuth.userRole !== "Guest"){
+    if(userAuth.userRole !== "Admin"){
+        const item = await post.getPost({prisma, params})
+        if(userAuth.userId === item.userid){
+            await post.delete({prisma, params})
+        }
+    }else if(userAuth.userRole === "Admin"){
+        await post.delete({prisma, params})
+    }
+}
+
+return Astro.redirect('/admin')
+---

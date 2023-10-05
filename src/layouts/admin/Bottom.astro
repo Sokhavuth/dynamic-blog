@@ -1,7 +1,6 @@
 <!--src/layouts/admin/Bottom.astro-->
 ---
-const { total=0 } = Astro.props
-const videos = true
+const { total=0, items=[], type='post' } = Astro.props
 ---
 
 <section class="max-w-5xl mx-auto md:px-0 px-2">
@@ -9,29 +8,29 @@ const videos = true
         ទាំងអស់​មាន​ចំនួនៈ {total}
     </div>
     <ul id="item-listing" class="grid md:grid-cols-2 grid-cols-1 gap-2 py-2 text-gray-600">
-        {[...Array(4).keys()].map((item, i)=>(
+        {items.map((item, i)=>(
         <li class="bg-teal-100 grid grid-cols-[20%_60%_15%] gap-x-2 items-center group">
-            <a class="relative pt-[56.25%] overflow-hidden" href="/post/:id">
+            <a class="relative pt-[56.25%] overflow-hidden" href=`/${type}/${item.id}`>
                 <img class="absolute top-0 left-0 w-full min-h-full" 
-                    src="https://i.imgur.com/0uhZ49R.png" 
+                    src={item.thumb} 
                 />
-                {videos && 
+                {item.videos && 
                 <img class="absolute top-1/2 left-1/2 min-h-auto w-1/4 -translate-x-1/2 -translate-y-1/2" 
                     src="/images/play.png" 
                 />
                 }
             </a>
             <div class="truncate">
-                <a href="/post/:id">
-                    ចំណង​ជើង
+                <a href=`/${type}/${item.id}`>
+                    {item.title}
                 </a>
-                <div>02/10/2023</div>
+                <div>{item.date}</div>
             </div>
             <div class="flex flex-row">
-                <a class="block w-1/2" href="/admin/edit/:id">
+                <a class="block w-1/2" href=`/admin/${type}/edit/${item.id}`>
                     <img class="invisible group-hover:visible" src="/images/edit.png" />
                 </a>
-                <a id="" class="delete block w-1/2" href=`/admin/delete/${i}`>
+                <a id="" class="delete block w-1/2" href=`/admin/${type}/delete/${item.id}`>
                     <img class="invisible group-hover:visible" src="/images/delete.png" />
                 </a>
             </div>
