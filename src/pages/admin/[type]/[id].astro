@@ -9,7 +9,7 @@ const { type } = Astro.params
 const params = Astro.params
 //const rawModule = await import(`../../../data/${type}`)
 //const module = rawModule.default
-import post from `../../../data/post.js`
+import post from "../../../data/post.js"
 
 const total = await post.count({prisma})
 const items = await post.getItems({prisma}, setting.adminItems)
