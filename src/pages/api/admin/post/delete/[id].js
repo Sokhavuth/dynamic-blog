@@ -1,6 +1,6 @@
 // src/pages/api/post/delete/[id].js
 
-import post from "../../../../data/post.js"
+import post from "../../../../../data/post.js"
 
 export async function GET({ locals, params, redirect }){
     const userAuth = locals.userAuth

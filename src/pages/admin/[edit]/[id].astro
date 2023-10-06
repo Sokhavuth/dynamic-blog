@@ -1,0 +1,21 @@
+<!--src/pages/admin/[edit]/[id].astro-->
+---
+import Base from "../../../layouts/admin/Base.astro"
+import Post from "../../../layouts/admin/Post.astro"
+const { userAuth, prisma, setting } = Astro.locals
+if(!userAuth?.userId){ return Astro.redirect('/login') }
+
+const { type } = Astro.params
+const params = Astro.params
+import item from "../../../data/post.js"
+
+const total = await item.count({prisma})
+const items = await item.getPosts({prisma}, setting.adminItems)
+const items_ = items.map((post)=>{post.date = new Date(post.date).toLocaleDateString('it-IT');
+                                return post })
+const item_ = await item.getPost({prisma, params})
+---
+
+<Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={items_} type={type}>
+    <Post item={item_}/>
+</Base>

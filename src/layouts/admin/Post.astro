@@ -1,17 +1,47 @@
 <!--src/layouts/admin/Post.astro-->
 ---
+const { item=0 } = Astro.props
 ---
 
 <script is:inline src="/scripts/ckeditor/ckeditor.js"></script>
 
 <section class="Post w-full">
-    <form id="form" action="/api/post/create" method="post">
+    {item ?
+    <form id="form" action=`/api/admin/post/update/${item.id}` method="post">
+        <input class="border w-full px-2 py-1 border-slate-300"
+            type="text" name="title" value={item.title} required placeholder="ចំណងជើង" 
+        />
+        <textarea class="" name="content" id="editor">{item.content}</textarea>
+        <input class="border w-full px-2 py-1 border-slate-300"
+            type="text" value={item.categories.join(', ')} name="categories" 
+            required placeholder="ជំពូក" 
+        />
+        <div class="grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1"> 
+            <select class="border px-2 py-1 border-slate-300" id="category">
+                <option>ជ្រើសរើស​ជំពូក</option>
+                <option>ព័ត៌មាន</option>
+            </select>
+            <input class="border px-2 py-1 border-slate-300"
+                type="text" value={item.thumb} name="thumb" required placeholder="រូបតំណាង" 
+            />
+            <input class="border px-2 py-1 border-slate-300" value={item.date}
+                type="datetime-local" step="1" name="datetime" required 
+            />
+            <input class="border border-slate-300 px-2 py-1 hover:opacity-75 bg-slate-200 hover:cursor-pointer"
+                type="submit" value="ចុះ​ផ្សាយ" 
+            />
+            <input type="hidden" name="videos" value="" />
+        </div>
+    </form>:
+    
+    <form id="form" action="/api/admin/post/create" method="post">
         <input class="border w-full px-2 py-1 border-slate-300"
             type="text" name="title" required placeholder="ចំណងជើង" 
         />
         <textarea class="" name="content" id="editor"></textarea>
         <input class="border w-full px-2 py-1 border-slate-300"
-            type="text" name="categories" required placeholder="ជំពូក" 
+            type="text" name="categories" 
+            required placeholder="ជំពូក" 
         />
         <div class="grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1"> 
             <select class="border px-2 py-1 border-slate-300" id="category">
@@ -30,6 +60,7 @@
             <input type="hidden" name="videos" value="" />
         </div>
     </form>
+    }
 
     <div class='grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1'>
         <select name='type' class="border px-2 py-1 border-slate-300">
@@ -53,9 +84,44 @@
         />
     </div>
 
-    <div class='viddata '>
-        <div class="grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1"></div>
+    <div class='viddata ' data-videos={item.videos}>
+        <div></div>
     </div>
+
+    <script>
+        let is_video = null
+        const rawVideos = $('.viddata').attr('data-videos')
+        $('input[name="videos"').val(rawVideos)
+        if(rawVideos){
+            is_video =JSON.parse(rawVideos)
+        }
+      
+        if((is_video) && (is_video !== '[]')){
+            let html = ''
+            let episode = is_video.length
+          
+            for(let video of is_video){
+                html += "<div class='grid md:grid-cols-[20%_auto_25%_15%] grid-cols-1'>"
+                html += `<input class="border px-2 py-1 border-slate-300 text-center" 
+                        value="${video.type}" required />`
+                html += `<input class="border px-2 py-1 border-slate-300 text-center" 
+                        value="${video.id}" required />`
+                html += `<input class="border px-2 py-1 border-slate-300 text-center" 
+                        value="${video.status}" required />`
+
+                html += `<p title="លុប" onClick="deleteRow(event)"
+                        class="episode border px-2 py-1 border-slate-300 hover:opacity-75 
+                        text-center bg-slate-200 hover:cursor-pointer">
+                        ${episode--}
+                        </p>`
+                
+                html += "</div>"
+            }
+
+          
+            $('.viddata div:eq(0)' ).after(html)
+        }
+        </script>
 
     <script>
         $('.Post input').on('change', () => {

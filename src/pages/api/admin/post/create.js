@@ -1,6 +1,6 @@
 // src/pages/api/post/create.js
 
-import post from "../../../data/post.js"
+import post from "../../../../data/post.js"
 
 export async function POST({ locals, request, redirect }){
     const prisma = locals.prisma
