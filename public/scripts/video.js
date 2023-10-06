@@ -4,7 +4,7 @@ let episode = 0
 
 const genJson = () => {
     let json = $('input[name="videos"]').val()
-    if((json !== '')&&(json !== '[]')){
+    if(json){
         json = JSON.parse(json)
         episode = json.length
     }else{
@@ -40,7 +40,7 @@ const genJson = () => {
             id: id,
             status: status,
         }
-        if((json === '')){
+        if((!json)){
             json = JSON.stringify([video])
             $('input[name="videos"]').val(json)
         }else{
@@ -100,8 +100,12 @@ function deleteRow(e) {
     json = JSON.parse(json)
     json.splice(index, 1)
     episode = json.length
-    json = JSON.stringify(json)
-    $('input[name="videos"').val(json)
+    if(episode === 0){
+        $('input[name="videos"').val('')
+    }else{
+        json = JSON.stringify(json)
+        $('input[name="videos"').val(json)
+    }
 
     for(let v=episode; v>-1; v--){
         $('.episode').eq(v).html(episode-v)

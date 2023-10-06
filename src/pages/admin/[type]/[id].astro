@@ -7,15 +7,16 @@ if(!userAuth?.userId){ return Astro.redirect('/login') }
 
 const { type } = Astro.params
 const params = Astro.params
-import item from "../../../data/post.js"
+const rawModule = await import(`../../../data/${type}`)
+const module = rawModule.default
 
-const total = await item.count({prisma})
-const items = await item.getPosts({prisma}, setting.adminItems)
-const items_ = items.map((post)=>{post.date = new Date(post.date).toLocaleDateString('it-IT');
-                                return post })
-const item_ = await item.getPost({prisma, params})
+const total = await module.count({prisma})
+const items = await module.getItems({prisma}, setting.adminItems)
+const items_ = items.map((item)=>{item.date = new Date(item.date).toLocaleDateString('it-IT');
+                                return item })
+const item_ = await module.getItem({prisma, params})
 ---
 
 <Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={items_} type={type}>
-    <Post item={item_}/>
+    <Post item={item_} type={type}/>
 </Base>

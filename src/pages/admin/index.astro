@@ -7,11 +7,11 @@ if(!userAuth?.userId){ return Astro.redirect('/login') }
 
 import post from "../../data/post.js"
 const total = await post.count({prisma})
-const items = await post.getPosts({prisma}, setting.adminItems)
+const items = await post.getItems({prisma}, setting.adminItems)
 const posts = items.map((post)=>{post.date = new Date(post.date).toLocaleDateString('it-IT')
                                 return post })
 ---
 
 <Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={posts} type="post">
-    <Post/>
+    <Post type='post' />
 </Base>
