@@ -27,10 +27,10 @@ const { total=0, items=[], type='post' } = Astro.props
                 <div>{item.date}</div>
             </div>
             <div class="flex flex-row">
-                <a class="block w-1/2" href=`/admin/${type}/edit/${item.id}`>
+                <a class="block w-1/2" href=`/api/${type}/edit/${item.id}`>
                     <img class="invisible group-hover:visible" src="/images/edit.png" />
                 </a>
-                <a id="" class="delete block w-1/2" href=`/admin/${type}/delete/${item.id}`>
+                <a id="" class="delete block w-1/2" href=`/api/${type}/delete/${item.id}`>
                     <img class="invisible group-hover:visible" src="/images/delete.png" />
                 </a>
             </div>
