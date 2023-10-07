@@ -7,11 +7,18 @@ if(!userAuth?.userId){ return Astro.redirect('/login') }
 
 import post from "../../data/post.js"
 const total = await post.count({prisma})
-const items = await post.getItems({prisma}, setting.adminItems)
+const numberPage = Math.ceil(total/setting.adminItems)
+const currentPage = Astro.url.searchParams.get('page')! || ''
+const pagination = {total, numberPage, currentPage}
+if(currentPage){
+    var items = await post.paginate({prisma, currentPage}, setting.adminItems)
+}else{
+    var items = await post.getItems({prisma}, setting.adminItems)
+}
 const posts = items.map((post)=>{post.date = new Date(post.date).toLocaleDateString('it-IT')
                                 return post })
 ---
 
-<Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={posts} type="post">
-    <Post type='post' />
+<Base pageTitle="ទំព័រ​គ្រប់គ្រង" pagination={pagination} items={posts} type="post">
+    <Post/>
 </Base>

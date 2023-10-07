@@ -1,16 +1,16 @@
 <!--src/layouts/admin/Bottom.astro-->
 ---
-const { total=0, items=[], type='post' } = Astro.props
+const { pagination=0, items=[], type='post' } = Astro.props
 ---
 
 <section class="max-w-5xl mx-auto md:px-0 px-2">
     <div class="text-center bg-teal-100 mt-2 py-2">
-        ទាំងអស់​មាន​ចំនួនៈ {total}
+        ទាំងអស់​មាន​ចំនួនៈ {pagination.total}
     </div>
     <ul id="item-listing" class="grid md:grid-cols-2 grid-cols-1 gap-2 py-2 text-gray-600">
         {items.map((item, i)=>(
         <li class="bg-teal-100 grid grid-cols-[20%_60%_15%] gap-x-2 items-center group">
-            <a class="relative pt-[56.25%] overflow-hidden" href=`/${type}/${item.id}`>
+            <a class="relative pt-[56.25%] overflow-hidden" href={"/"+type+"/"+item.id}>
                 <img class="absolute top-0 left-0 w-full min-h-full" 
                     src={item.thumb} 
                 />
@@ -21,16 +21,16 @@ const { total=0, items=[], type='post' } = Astro.props
                 }
             </a>
             <div class="truncate">
-                <a href=`/${type}/${item.id}`>
+                <a href={"/"+type+"/"+item.id}>
                     {item.title}
                 </a>
                 <div>{item.date}</div>
             </div>
             <div class="flex flex-row">
-                <a class="block w-1/2" href=`/admin/${type}/${item.id}`>
+                <a class="edit block w-1/2" href={"/admin/"+type+"/"+item.id}>
                     <img class="invisible group-hover:visible" src="/images/edit.png" />
                 </a>
-                <a id="" class="delete block w-1/2" href=`/api/admin/${type}/delete/${item.id}`>
+                <a class="delete block w-1/2" href={"/api/admin/"+type+"/delete/"+item.id}>
                     <img class="invisible group-hover:visible" src="/images/delete.png" />
                 </a>
             </div>
@@ -44,6 +44,46 @@ const { total=0, items=[], type='post' } = Astro.props
         
     </ul>
     <div class="bg-teal-100 py-2 mb-5">
-        <img class="mx-auto hover:opacity-75 cursor-pointer" src="/images/load-more.png" />
+        <span class="flex justify-center">
+            <span>​​​​​​​​​​​​​​​​​​​​​ទំព័រ </span>&nbsp;&nbsp;
+            <select id="page" class="border border-black pl-1" data-page={pagination.currentPage}>
+                {pagination.numberPage && 
+                <>
+                {[...Array(pagination.numberPage).keys()].map(number => (<option>{++number}</option>))}
+                </>
+                }
+            </select>&nbsp;&nbsp; 
+            <span>នៃ {pagination.numberPage}</span>
+        </span>
+        <script>
+            $('#page').on('change', () => {
+                window.location.href = "/admin/?page="+$( "#page option:selected" ).text()
+            })
+            const changeSelected = (e) => {
+                    const text = $('#page').attr('data-page')
+                    const $select = document.querySelector('#page')
+                    const $options = Array.from($select.options)
+                    if(text){
+                        const optionToSelect = $options.find(item => item.text === text)
+                        optionToSelect.selected = true
+                    }
+
+                    const page = $( "#page option:selected" ).text()
+                    $('.edit').each(function(){
+                        const link = $(this).attr('href')+"?page="+page
+                        $(this).attr('href', link)
+                    })
+
+                    $('.delete').each(function(){
+                        const link = $(this).attr('href')+"?page="+page
+                        $(this).attr('href', link)
+                    })
+                    
+                    const url = $('#form').attr('action')+"?page="+page
+                    $('#form').attr('action', url)
+                }
+
+            changeSelected()
+        </script>
     </div>
 </section>

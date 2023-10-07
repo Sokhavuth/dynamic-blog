@@ -66,6 +66,16 @@ class Post{
      
         await req.prisma.post.update({ where: {id: req.params.id }, data: newvalue })
     }
+
+    async paginate(req, amount){
+        const posts = await req.prisma.post.findMany({ 
+            orderBy: [{ date: "desc" }, { id: "desc" }],
+            skip: amount * (parseInt(req.currentPage) - 1),
+            take: amount
+        })
+
+        return posts
+    }
 }
 
 export default new Post()

@@ -1,10 +1,14 @@
-// src/pages/api/admin/[type]/edit/[id].js
+// src/pages/api/admin/post/update/[id].js
 
 import post from "../../../../../data/post.js"
 
-export async function POST({ locals, redirect, params, request}){
+export async function POST({ locals, redirect, params, request, url}){
     const userAuth = locals.userAuth
     const prisma = locals.prisma
+    let currentPage = url.searchParams.get('page') || ''
+    if(currentPage){
+        currentPage = "?page=" + currentPage
+    }
 
     if(userAuth?.userId){
         if(userAuth.userRole !== "Guest"){
@@ -29,7 +33,7 @@ export async function POST({ locals, redirect, params, request}){
             }
         }
 
-        return redirect("/admin", 302)
+        return redirect("/admin"+currentPage, 302)
     }
 
     return redirect('/login', 302)

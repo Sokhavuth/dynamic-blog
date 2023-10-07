@@ -1,4 +1,4 @@
-<!--src/pages/admin/[edit]/[id].astro-->
+<!--src/pages/admin/post/[id].astro-->
 ---
 import Base from "../../../layouts/admin/Base.astro"
 import Post from "../../../layouts/admin/Post.astro"
@@ -9,12 +9,19 @@ const params = Astro.params
 import post from "../../../data/post.js"
 
 const total = await post.count({prisma})
-const items = await post.getItems({prisma}, setting.adminItems)
+const numberPage = Math.ceil(total/setting.adminItems)
+const currentPage = Astro.url.searchParams.get('page')! || ''
+const pagination = {total, numberPage, currentPage}
+if(currentPage){
+    var items = await post.paginate({prisma, currentPage}, setting.adminItems)
+}else{
+    var items = await post.getItems({prisma}, setting.adminItems)
+}
 const items_ = items.map((item)=>{item.date = new Date(item.date).toLocaleDateString('it-IT');
                                 return item })
 const item_ = await post.getItem({prisma, params})
 ---
 
-<Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={items_} type="post">
+<Base pageTitle="ទំព័រ​កែប្រែ​" pagination={pagination} items={items_} type="post">
     <Post item={item_}/>
 </Base>
