@@ -5,10 +5,7 @@ import Post from "../../../layouts/admin/Post.astro"
 const { userAuth, prisma, setting } = Astro.locals
 if(!userAuth?.userId){ return Astro.redirect('/login') }
 
-const { type } = Astro.params
 const params = Astro.params
-//const rawModule = await import(`../../../data/${type}`)
-//const module = rawModule.default
 import post from "../../../data/post.js"
 
 const total = await post.count({prisma})
@@ -18,6 +15,6 @@ const items_ = items.map((item)=>{item.date = new Date(item.date).toLocaleDateSt
 const item_ = await post.getItem({prisma, params})
 ---
 
-<Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={items_} type={type}>
-    <Post item={item_} type={type}/>
+<Base pageTitle="ទំព័រ​គ្រប់គ្រង" total={total} items={items_} type="post">
+    <Post item={item_}/>
 </Base>

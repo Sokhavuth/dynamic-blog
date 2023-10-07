@@ -1,13 +1,13 @@
 <!--src/layouts/admin/Post.astro-->
 ---
-const { item=0, type='' } = Astro.props
+const { item=0 } = Astro.props
 ---
 
 <script is:inline src="/scripts/ckeditor/ckeditor.js"></script>
 
 <section class="Post w-full">
     {item ?
-    <form id="form" action=`/api/admin/${type}/update/${item.id}` method="post">
+    <form id="form" action=`/api/admin/post/update/${item.id}` method="post">
         <input class="border w-full px-2 py-1 border-slate-300"
             type="text" name="title" value={item.title} required placeholder="ចំណងជើង" 
         />
@@ -34,7 +34,7 @@ const { item=0, type='' } = Astro.props
         </div>
     </form>:
     
-    <form id="form" action=`/api/admin/${type}/create` method="post">
+    <form id="form" action=`/api/admin/post/create` method="post">
         <input class="border w-full px-2 py-1 border-slate-300"
             type="text" name="title" required placeholder="ចំណងជើង" 
         />

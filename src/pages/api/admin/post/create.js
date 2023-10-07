@@ -1,16 +1,10 @@
 // src/pages/api/post/create.js
 
-export async function POST({ locals, request, redirect, params }){
+import post from "../../../../data/post.js"
+
+export async function POST({ locals, request, redirect }){
     const prisma = locals.prisma
     const userAuth = locals.userAuth
-    const type = params.type
-
-    if(type === "post"){
-        var route = '/admin'
-    }
-
-    const rawModule = await import(`../../../../data/${type}`)
-    const module = rawModule.default
 
     if(userAuth.userRole !== "Guest"){
         const data = await request.formData()
@@ -23,9 +17,9 @@ export async function POST({ locals, request, redirect, params }){
     
         if(title && categories && thumb && datetime){
             const body = {title, content, categories, thumb, datetime, videos}
-            await module.create({ prisma, body, userAuth })
+            await post.create({ prisma, body, userAuth })
         }
     }
 
-    return redirect(route, 302)
+    return redirect("/admin", 302)
 }
