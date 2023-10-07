@@ -1,0 +1,71 @@
+<!--src/layouts/admin/Page.astro-->
+---
+const { item=0 } = Astro.props
+---
+
+<script is:inline src="/scripts/ckeditor/ckeditor.js"></script>
+
+<section class="Page w-full">
+    {item ?
+    <form id="form" action={"/api/admin/page/update/"+item.id} method="post">
+        <input class="border w-full px-2 py-1 border-slate-300"
+            type="text" name="title" value={item.title} required placeholder="ចំណងជើង" 
+        />
+        <textarea class="" name="content" id="editor">{item.content}</textarea>
+        <div class="grid md:grid-cols-[auto_auto_15%] grid-cols-1"> 
+            <input class="border px-2 py-1 border-slate-300"
+                type="text" value={item.thumb} name="thumb" required placeholder="រូបតំណាង" 
+            />
+            <input class="border px-2 py-1 border-slate-300" value={item.date}
+                type="datetime-local" step="1" name="datetime" required 
+            />
+            <input class="border border-slate-300 px-2 py-1 hover:opacity-75 bg-slate-200 hover:cursor-pointer"
+                type="submit" value="ចុះ​ផ្សាយ" 
+            />
+        </div>
+    </form>:
+    
+    <form id="form" action="/api/admin/page/create" method="post">
+        <input class="border w-full px-2 py-1 border-slate-300"
+            type="text" name="title" required placeholder="ចំណងជើង" 
+        />
+        <textarea class="" name="content" id="editor"></textarea>
+        <div class="grid md:grid-cols-[auto_auto_15%] grid-cols-1"> 
+            <input class="border px-2 py-1 border-slate-300"
+                type="text" name="thumb" required placeholder="រូបតំណាង" 
+            />
+            <input class="border px-2 py-1 border-slate-300"
+                type="datetime-local" step="1" name="datetime" required 
+            />
+            <input class="border border-slate-300 px-2 py-1 hover:opacity-75 
+                bg-slate-200 hover:cursor-pointer" type="submit" value="ចុះ​ផ្សាយ" 
+            />
+        </div>
+    </form>
+    }
+
+    <script>
+        $('.Page input').on('change', () => {
+            window.onbeforeunload = save_data_check
+        })
+        
+        ckeditor.model.document.on( 'change', () => {
+            window.onbeforeunload = save_data_check
+        } )
+
+        $('.Page #form').on('submit', () => {
+            window.onbeforeunload = null
+        })
+
+        function save_data_check(){        
+            return "Your changes may not be saved."
+        }
+    </script>
+</section>
+
+<script is:inline src="/scripts/ckeditor/config.js"></script>
+<style is:global>
+    .ck-editor__editable {
+        min-height: 270px;
+    }
+</style>

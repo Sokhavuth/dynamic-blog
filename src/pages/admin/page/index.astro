@@ -1,0 +1,24 @@
+<!--src/pages/admin/page/index.astro-->
+---
+import Base from "../../../layouts/admin/Base.astro"
+import Page from "../../../layouts/admin/Page.astro"
+const { userAuth, prisma, setting } = Astro.locals
+if(!userAuth?.userId){ return Astro.redirect('/login') }
+
+import page from "../../../data/page.js"
+const total = await page.count({prisma})
+const numberPage = Math.ceil(total/setting.adminItems)
+const currentPage = Astro.url.searchParams.get('page') || ''
+const pagination = {total, numberPage, currentPage}
+if(currentPage){
+    var items = await page.paginate({prisma, currentPage}, setting.adminItems)
+}else{
+    var items = await page.getItems({prisma}, setting.adminItems)
+}
+const pages = items.map((page)=>{page.date = new Date(page.date).toLocaleDateString('it-IT')
+                                return page })
+---
+
+<Base pageTitle="ទំព័រ​ស្តាទិក" pagination={pagination} items={pages} type="page">
+    <Page/>
+</Base>

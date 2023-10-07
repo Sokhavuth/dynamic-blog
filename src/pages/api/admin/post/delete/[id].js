@@ -1,4 +1,4 @@
-// src/pages/api/post/delete/[id].js
+// src/pages/api/admin/post/delete/[id].js
 
 import post from "../../../../../data/post.js"
 

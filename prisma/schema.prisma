@@ -31,3 +31,11 @@ model Post {
   videos String
   userid String
 }
+
+model Page {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  content String
+  thumb String
+  date String
+}
