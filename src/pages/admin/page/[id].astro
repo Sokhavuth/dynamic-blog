@@ -1,0 +1,27 @@
+<!--src/pages/admin/post/[id].astro-->
+---
+import Base from "../../../layouts/admin/Base.astro"
+import Page from "../../../layouts/admin/Page.astro"
+const { userAuth, prisma, setting } = Astro.locals
+if(!userAuth?.userId){ return Astro.redirect('/login') }
+
+const params = Astro.params
+import page from "../../../data/page.js"
+
+const total = await page.count({prisma})
+const numberPage = Math.ceil(total/setting.adminItems)
+const currentPage = Astro.url.searchParams.get('page')! || ''
+const pagination = {total, numberPage, currentPage}
+if(currentPage){
+    var items = await page.paginate({prisma, currentPage}, setting.adminItems)
+}else{
+    var items = await page.getItems({prisma}, setting.adminItems)
+}
+const items_ = items.map((item)=>{item.date = new Date(item.date).toLocaleDateString('it-IT');
+                                return item })
+const item_ = await page.getItem({prisma, params})
+---
+
+<Base pageTitle="ទំព័រ​កែប្រែ​" pagination={pagination} items={items_} type="page">
+    <Page item={item_}/>
+</Base>

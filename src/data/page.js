@@ -27,6 +27,21 @@ class Page{
         })
     }
 
+    async getItem(req){
+        return await req.prisma.page.findUnique({ where: {id: req.params.id }})
+    }
+
+    async update(req){
+        let newvalue = {
+            title: req.body.title,
+            content: req.body.content,
+            thumb: req.body.thumb,
+            date: req.body.datetime,
+        }
+     
+        await req.prisma.page.update({ where: {id: req.params.id }, data: newvalue })
+    }
+
     async paginate(req, amount){
         const pages = await req.prisma.page.findMany({ 
             orderBy: [{ date: "desc" }, { id: "desc" }],
